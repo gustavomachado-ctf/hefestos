@@ -1,6 +1,6 @@
 import uvicorn
 
-from api.asgi import app
+from app.asgi import app
 
 
 def main() -> None:
