@@ -1,5 +1,6 @@
 from sqlmodel import Session, select
 
+from app.dto.register import RegisterDTO
 from app.model.register import RegisterModel
 
 
@@ -18,3 +19,10 @@ class RegisterRepository:
             statement = select(RegisterModel).where(RegisterModel.name == config_name)
 
         return self.session.exec(statement).first()
+
+    def create(self, data: RegisterDTO) -> RegisterModel | None:
+        model = RegisterModel(**data.model_dump())
+
+        self.session.add(model)
+        self.session.commit()
+        return model
