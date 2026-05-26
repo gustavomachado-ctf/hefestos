@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, Field
 
 
-class IntegrationsModel(SQLModel, table=True):
+class RegisterModel(SQLModel, table=True):
     """Modelo para cadastro de integração."""
 
     name: str = Field(min_length=1, max_length=100, nullable=False)

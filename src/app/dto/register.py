@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class RegisterRequestDTO(BaseModel):
+class RegisterDTO(BaseModel):
     """Dados para cadastro de nova integração."""
 
     name: str
