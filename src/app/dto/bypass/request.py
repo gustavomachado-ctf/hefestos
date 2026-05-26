@@ -1,13 +1,6 @@
-from enum import StrEnum
-
 from pydantic import BaseModel
 
-
-class BypassFields(StrEnum):
-    """Enum com os campos de onde o desvio pode ser passado para a integração."""
-
-    access_url = "URL_ACESSO"
-    aux_code = "CODIGO_AUXILIAR"
+from app.enums.bypass import BypassFieldsEnum
 
 
 class BypassRequestDTO(BaseModel):
@@ -22,7 +15,7 @@ class BypassRequestDTO(BaseModel):
     name_config_hecate: str
     """Nome da configuração no Hecate."""
 
-    bypass_field: BypassFields
+    bypass_field: BypassFieldsEnum
     """Campo de onde o desvio pode ser passado para a integração."""
 
     comparator: str = "ILIKE"
