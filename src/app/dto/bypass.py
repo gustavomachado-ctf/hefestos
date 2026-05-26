@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from app.enums.bypass import BypassFieldsEnum
 
 
-class BypassRequestDTO(BaseModel):
+class ByPassDTO(BaseModel):
     """Dados para cadastro de desvio."""
 
     name: str
