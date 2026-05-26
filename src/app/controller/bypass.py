@@ -23,12 +23,12 @@ def list_bypasses(
 @router.post("/register", summary="Registrar desvio.")
 def register_deviation(
     service: Annotated[ByPassService, Depends(get_bypass_service)],
-    register_dto: ByPassDTO,
+    bypass_dto: ByPassDTO,
 ) -> ByPassDTO:
-    if service.get_found_deviations(config_name=register_dto.name):
+    if service.get_found_deviations(config_name=bypass_dto.name):
         raise HTTPException(status_code=409, detail="desvio já cadastrado.")
 
-    if not (response := service.register_deviation(data=register_dto)):
+    if not (response := service.register_deviation(data=bypass_dto)):
         raise HTTPException(status_code=400, detail="Erro ao registrar desvio.")
 
     return response

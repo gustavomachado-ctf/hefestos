@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class JobRunnerRequestDTO(BaseModel):
+class JobRunnerDTO(BaseModel):
     """Dados para cadastro de Job Runner."""
 
     name: str
