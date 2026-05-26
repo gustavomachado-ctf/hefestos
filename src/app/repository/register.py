@@ -13,16 +13,28 @@ class RegisterRepository:
         self.session = session
 
     def get(self, config_name: str | None) -> RegisterModel | None:
-        statement = select(RegisterModel)
+        try:
+            statement = select(RegisterModel)
 
-        if config_name:
-            statement = select(RegisterModel).where(RegisterModel.name == config_name)
+            if config_name:
+                statement = select(RegisterModel).where(RegisterModel.name == config_name)
 
-        return self.session.exec(statement).first()
+            return self.session.exec(statement).first()
+
+        except Exception:
+            self.session.rollback()
+            raise
 
     def create(self, data: RegisterDTO) -> RegisterModel | None:
-        model = RegisterModel(**data.model_dump())
+        try:
+            model = RegisterModel(**data.model_dump())
 
-        self.session.add(model)
-        self.session.commit()
-        return model
+            self.session.add(model)
+            self.session.commit()
+            self.session.refresh(model)
+
+            return model
+
+        except Exception:
+            self.session.rollback()
+            raise
