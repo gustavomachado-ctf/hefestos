@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class CnpjRelationRequestDTO(BaseModel):
-    """Dados para cadastro de relação de CNPJs."""
+    """Dados para cadastro da relação entre CNPJs."""
 
     cnpj: str
     """CNPJ do fornecedor filial."""

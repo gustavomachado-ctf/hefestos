@@ -28,5 +28,5 @@ class BypassRequestDTO(BaseModel):
     comparator: str = "ILIKE"
     """Comparador a ser utilizado no campo para verificar o valor."""
 
-    value: str
-    """Valor a ser verificado no campo (flag do desvio)."""
+    deviation_flag: str
+    """flag do desvio que será verificada."""
