@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class CnpjRelationRequestDTO(BaseModel):
+class CnpjRelationDTO(BaseModel):
     """Dados para cadastro da relação entre CNPJs."""
 
     cnpj: str
