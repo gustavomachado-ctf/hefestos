@@ -6,5 +6,8 @@ class ByPassPresenter:
     """Apresentação dos dados dos desvios."""
 
     @staticmethod
-    def present(model: ByPassModel) -> ByPassDTO:
-        return ByPassDTO(**model.model_dump())
+    def present(models: list[ByPassModel]) -> list[ByPassDTO]:
+        return [
+            ByPassDTO(**model.model_dump())
+            for model in models
+        ]

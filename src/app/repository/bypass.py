@@ -12,20 +12,20 @@ class ByPassRepository:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def get(self, config_name: str | None) -> ByPassModel | None:
+    def get(self, config_name: str | None) -> list[ByPassModel] | None:
         try:
             statement = select(ByPassModel)
 
             if config_name:
                 statement = select(ByPassModel).where(ByPassModel.base_config_name == config_name)
 
-            return self.session.exec(statement).first()
+            return self.session.exec(statement).all() or None
 
         except Exception:
             self.session.rollback()
             raise
 
-    def create(self, data: ByPassDTO) -> ByPassModel | None:
+    def create(self, data: ByPassDTO) -> list[ByPassModel] | None:
         try:
             model = ByPassModel(**data.model_dump())
 
@@ -33,7 +33,7 @@ class ByPassRepository:
             self.session.commit()
             self.session.refresh(model)
 
-            return model
+            return model or None
 
         except Exception:
             self.session.rollback()

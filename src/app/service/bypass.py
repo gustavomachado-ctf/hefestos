@@ -12,14 +12,14 @@ class ByPassService:
         self.repository = repository
         self.presenter = ByPassPresenter()
 
-    def get_found_deviations(self, config_name: str | None) -> ByPassDTO | None:
+    def get_found_deviations(self, config_name: str | None) -> list[ByPassDTO] | None:
         if not (model := self.repository.get(config_name=config_name)):
             return None
 
-        return self.presenter.present(model=model)
+        return self.presenter.present(models=model)
 
-    def register_deviation(self, data: ByPassDTO):
+    def register_deviation(self, data: ByPassDTO) -> list[ByPassDTO] | None:
         if not (model := self.repository.create(data=data)):
             return None
 
-        return self.presenter.present(model=model)
+        return self.presenter.present(models=model)
