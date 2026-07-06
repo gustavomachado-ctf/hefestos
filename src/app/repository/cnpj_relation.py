@@ -12,21 +12,23 @@ class CnpjRelationRepository:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def get(self, supplier_cnpj: str | None) -> CnpjRelationModel | None:
+    def get(self, supplier_cnpj: str | None) -> list[CnpjRelationModel] | None:
         try:
             statement = select(CnpjRelationModel)
 
             if supplier_cnpj:
-                statement = (select(CnpjRelationModel).where(CnpjRelationModel.cnpj == supplier_cnpj) or
-                             select(CnpjRelationModel).where(CnpjRelationModel.parent_cnpj == supplier_cnpj))
+                statement = (
+                    select(CnpjRelationModel).where(CnpjRelationModel.cnpj == supplier_cnpj) or
+                    select(CnpjRelationModel).where(CnpjRelationModel.parent_cnpj == supplier_cnpj)
+                )
 
-            return self.session.exec(statement).first()
+            return self.session.exec(statement).all() or None
 
         except Exception:
             self.session.rollback()
             raise
 
-    def create(self, data: CnpjRelationDTO) -> CnpjRelationModel | None:
+    def create(self, data: CnpjRelationDTO) -> list[CnpjRelationModel] | None:
         try:
             model = CnpjRelationModel(**data.model_dump())
 
@@ -34,7 +36,7 @@ class CnpjRelationRepository:
             self.session.commit()
             self.session.refresh(model)
 
-            return model
+            return model or None
 
         except Exception:
             self.session.rollback()

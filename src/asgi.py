@@ -5,6 +5,7 @@ from typing import Any
 
 from fastapi import FastAPI
 
+from app.controller.cnpj_relation import router as relations_router
 from app.controller.job_runner import router as job_runner
 from app.controller.register import router as register_router
 from app.repository.database import SQLModelDatabase
@@ -21,3 +22,4 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(register_router)
 app.include_router(job_runner)
+app.include_router(relations_router)

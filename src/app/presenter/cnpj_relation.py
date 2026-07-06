@@ -6,5 +6,8 @@ class CnpjRelationPresenter:
     """Apresentação dos dados dos registros."""
 
     @staticmethod
-    def present(model: CnpjRelationModel) -> CnpjRelationDTO:
-        return CnpjRelationDTO(**model.model_dump())
+    def present(models: list[CnpjRelationModel]) -> list[CnpjRelationDTO]:
+        return [
+            CnpjRelationDTO(**model.model_dump())
+            for model in models
+        ]
