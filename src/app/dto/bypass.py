@@ -9,7 +9,7 @@ class ByPassDTO(BaseModel):
     name: str
     """Nome do desvio (nome integração + campo utilizado no desvio)."""
 
-    base_config_name: str | None = None
+    base_config_name: str
     """Nome da integração base a ser utilizada como referência."""
 
     name_config_hecate: str

@@ -4,6 +4,8 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI
+from app.controller.register import router as register_router
+from app.repository.database import SQLModelDatabase
 
 
 @asynccontextmanager
@@ -14,3 +16,5 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator[dict[str, Any] | None]:
 
 
 app = FastAPI(lifespan=lifespan)
+
+app.include_router(register_router)

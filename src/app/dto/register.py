@@ -7,38 +7,38 @@ class RegisterDTO(BaseModel):
     name: str
     """Nome da integração."""
 
-    supplier_cnpj: str
+    cnpj: str | None = None
     """CNPJ do fornecedor."""
 
-    bucket_name: str = "transaction-retention-demo"
+    bucket_name: str | None = None
     """Bucket da integração."""
 
-    payment_queue: str | None = None
+    payment_condition_queue: str | None = None
     """Fila de pagamento."""
 
-    aux_queue: str
+    aux_queue: str | None = None
     """Fila auxiliar."""
 
-    general_queue: str
+    general_queue: str | None = None
     """Fila geral."""
 
-    order_queue: str
+    order_queue: str | None = None
     """Fila de pedido."""
 
-    auth_queue: str
+    authentication_queue: str | None = None
     """Fila de autenticação."""
 
-    ingestion_queue: str
+    price_ingestion_queue: str | None = None
     """Fila de ingestão."""
 
-    pp_order_queue: str
+    pedpreco_order_queue: str | None = None
     """Fila de pedido do Pedpreco."""
 
-    pp_invoice_queue: str
+    pedpreco_invoice_queue: str | None = None
     """Fila de retorno do Pedpreco."""
 
     job_runner_name: str | None = None
     """Nome do Job Runner criado para a integração."""
 
-    use_protheus: bool
+    use_protheus: bool = True
     """Sinalizar se a integração usa Protheus para conversão de DTOs."""

@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
-from fastapi.params import Depends
-from sqlalchemy.sql.annotation import Annotated
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.params import Query
 
 from app.dto.register import RegisterDTO
 from app.service.register import RegisterService
@@ -9,11 +10,11 @@ from dependencies import get_register_service
 router = APIRouter(prefix="/integration")
 
 
-@router.get("/list/{config_name}", summary="Listar Integrações")
+@router.get("/list", summary="Listar Integrações")
 def list_integrations(
     service: Annotated[RegisterService, Depends(get_register_service)],
-    config_name: str | None = None,
-) -> RegisterDTO | None:
+    config_name: str | None = Query(default=None),
+) -> list[RegisterDTO] | None:
     if not (response := service.get_found_integrations(config_name=config_name)):
         raise HTTPException(status_code=404, detail="Integração não encontrada.")
 

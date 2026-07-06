@@ -4,7 +4,7 @@ from sqlmodel import SQLModel, Field
 class JobRunnerModel(SQLModel, table=True):
     """Modelo para cadastro do job runner."""
 
-    name: str = Field(min_length=1, max_length=50, nullable=False)
+    name: str = Field(min_length=1, max_length=50, primary_key=True, nullable=False)
     """Nome do job runner."""
 
     task_definition_id: str = Field(min_length=1, max_length=100, nullable=False)

@@ -12,14 +12,14 @@ class RegisterService:
         self.repository = repository
         self.presenter = RegisterPresenter()
 
-    def get_found_integrations(self, config_name: str | None) -> RegisterDTO | None:
+    def get_found_integrations(self, config_name: str | None) -> list[RegisterDTO] | None:
         if not (model := self.repository.get(config_name=config_name)):
             return None
 
-        return self.presenter.present(model=model)
+        return self.presenter.present(models=model)
 
-    def register_integration(self, data: RegisterDTO):
+    def register_integration(self, data: RegisterDTO) -> list[RegisterDTO] | None:
         if not (model := self.repository.create(data=data)):
             return None
 
-        return self.presenter.present(model=model)
+        return self.presenter.present(models=model)

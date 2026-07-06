@@ -6,16 +6,16 @@ from app.enums.bypass import BypassFieldsEnum
 class ByPassModel(SQLModel, table=True):
     """Modelo para cadastrar desvio."""
 
-    name: str = Field(min_length=1, max_length=50, nullable=False)
+    name: str = Field(min_length=1, max_length=50, primary_key=True, nullable=False)
     """Nome do desvio."""
 
-    base_config_name: str | None = Field(default=None, nullable=True, max_length=50)
+    base_config_name: str = Field(min_length=1, max_length=50, nullable=False)
     """Nome da configuração base."""
 
     name_config_hecate: str = Field(min_length=1, max_length=50, nullable=False)
     """Nome da configuração no Hecate."""
 
-    bypass_field: BypassFieldsEnum = BypassFieldsEnum
+    bypass_field: BypassFieldsEnum
     """Campo de onde o desvio pode ser passado para a integração."""
 
     comparator: str = Field(min_length=1, max_length=50, nullable=False)
