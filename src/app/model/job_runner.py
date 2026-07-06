@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, Field
 
 
-class JobRunnerModel(SQLModel, table=True):
+class JobRunnerBaseModel(SQLModel):
     """Modelo para cadastro do job runner."""
 
     name: str = Field(min_length=1, max_length=50, primary_key=True, nullable=False)
@@ -9,6 +9,9 @@ class JobRunnerModel(SQLModel, table=True):
 
     task_definition_id: str = Field(min_length=1, max_length=100, nullable=False)
     """ID da definição de tarefa."""
+
+    cluster: str = Field(min_length=1, max_length=100, nullable=False)
+    """Nome do cluster"""
 
     capacity_provider: str = Field(min_length=1, max_length=50, nullable=False)
     """Capacity provider utilizado."""
@@ -19,5 +22,15 @@ class JobRunnerModel(SQLModel, table=True):
     subnets: str = Field(min_length=1, max_length=100, nullable=False)
     """Subnets utilizadas."""
 
-    security_group: str = Field(min_length=1, max_length=100, nullable=False)
+    security_groups: str = Field(min_length=1, max_length=100, nullable=False)
     """Security group utilizado."""
+
+    assign_public_ip: bool = Field(default=False)
+
+
+class JobRunnerModel(JobRunnerBaseModel, table=True):
+    """
+    Representa a tabela de runners das integrações.
+    """
+
+    __tablename__ = "job_runners"

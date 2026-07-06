@@ -1,6 +1,7 @@
+from typing import Annotated
+
 from fastapi import APIRouter, HTTPException
-from fastapi.params import Depends
-from sqlalchemy.sql.annotation import Annotated
+from fastapi.params import Depends, Query
 
 from app.dto.job_runner import JobRunnerDTO
 from app.service.job_runner import JobRunnerService
@@ -9,11 +10,11 @@ from dependencies import get_job_runner_service
 router = APIRouter(prefix="/job_runner")
 
 
-@router.get("/list/{config_name}", summary="Listar Runners")
+@router.get("/list", summary="Listar Runners")
 def list_runners(
     service: Annotated[JobRunnerService, Depends(get_job_runner_service)],
-    config_name: str | None = None,
-) -> JobRunnerDTO | None:
+    config_name: str | None = Query(default=None),
+) -> list[JobRunnerDTO] | None:
     if not (response := service.get_found_runners(config_name=config_name)):
         raise HTTPException(status_code=404, detail="Job Runner não encontrado.")
 

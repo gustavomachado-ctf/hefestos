@@ -1,6 +1,7 @@
+from typing import Annotated
+
 from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
-from sqlalchemy.sql.annotation import Annotated
 
 from app.dto.cnpj_relation import CnpjRelationDTO
 from app.service.cnpj_relation import CnpjRelationService

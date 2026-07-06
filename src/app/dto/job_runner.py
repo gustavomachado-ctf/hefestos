@@ -10,6 +10,9 @@ class JobRunnerDTO(BaseModel):
     task_definition_id: str
     """ID da definição de tarefa (ID padrão + nome do projeto)."""
 
+    cluster: str
+    """Cluster utilizado pela integração."""
+
     capacity_provider: str = "FARGATE"
     """Capacity provider utilizado (FARGATE por padrão)."""
 
@@ -19,5 +22,8 @@ class JobRunnerDTO(BaseModel):
     subnets: str
     """Subnets utilizadas."""
 
-    security_group: str
+    security_groups: str
     """Security group utilizado."""
+
+    assign_public_ip: bool
+    """Se a integração utiliza IP público."""

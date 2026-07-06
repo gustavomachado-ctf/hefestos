@@ -12,20 +12,20 @@ class JobRunnerRepository:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def get(self, config_name: str | None) -> JobRunnerModel | None:
+    def get(self, config_name: str | None) -> list[JobRunnerModel] | None:
         try:
             statement = select(JobRunnerModel)
 
             if config_name:
                 statement = select(JobRunnerModel).where(JobRunnerModel.name == config_name)
 
-            return self.session.exec(statement).first()
+            return self.session.exec(statement).all() or None
 
         except Exception:
             self.session.rollback()
             raise
 
-    def create(self, data: JobRunnerDTO) -> JobRunnerModel | None:
+    def create(self, data: JobRunnerDTO) -> list[JobRunnerModel] | None:
         try:
             model = JobRunnerModel(**data.model_dump())
 
@@ -33,7 +33,7 @@ class JobRunnerRepository:
             self.session.commit()
             self.session.refresh(model)
 
-            return model
+            return model or None
 
         except Exception:
             self.session.rollback()

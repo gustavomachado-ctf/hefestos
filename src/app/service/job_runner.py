@@ -12,14 +12,14 @@ class JobRunnerService:
         self.repository = repository
         self.presenter = JobRunnerPresenter()
 
-    def get_found_runners(self, config_name: str | None) -> JobRunnerDTO | None:
+    def get_found_runners(self, config_name: str | None) -> list[JobRunnerDTO] | None:
         if not (model := self.repository.get(config_name=config_name)):
             return None
 
-        return self.presenter.present(model=model)
+        return self.presenter.present(models=model)
 
     def register_runner(self, data: JobRunnerDTO):
         if not (model := self.repository.create(data=data)):
             return None
 
-        return self.presenter.present(model=model)
+        return self.presenter.present(models=model)
