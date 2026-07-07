@@ -18,9 +18,10 @@ class CnpjRelationRepository:
 
             if supplier_cnpj:
                 statement = (
-                    select(CnpjRelationModel).where(CnpjRelationModel.cnpj == supplier_cnpj) or
-                    select(CnpjRelationModel).where(CnpjRelationModel.parent_cnpj == supplier_cnpj)
-                )
+                    select(CnpjRelationModel).where(
+                        (CnpjRelationModel.cnpj == supplier_cnpj) |
+                        (CnpjRelationModel.parent_cnpj == supplier_cnpj)
+                    ))
 
             return self.session.exec(statement).all() or None
 
