@@ -33,7 +33,7 @@ class RegisterRepository:
             self.session.commit()
             self.session.refresh(model)
 
-            return model
+            return list(model) or None
 
         except Exception:
             self.session.rollback()
